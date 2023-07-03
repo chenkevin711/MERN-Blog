@@ -1,21 +1,18 @@
-export default (state = { isLoading: true, posts: [] }, action) => {
+export default (posts = [], action) => {
     switch (action.type) {
-        case 'START_LOADING':
-            return { ...state, isLoading: true }
-		case 'END_LOADING':
-			return { ...state, isLoading: false };
         case 'FETCH_ALL':
-            return action.payload    
+            return action.payload
         case 'FETCH_POST':
-            return { ...state, post: action.payload.post }
-        case 'CREATE':
-            return { ...state, posts: [...state.posts, action.payload] };
-        case 'UPDATE':
+            return { ...posts, post: action.payload.post }
         case 'LIKE':
-            return { ...state, posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post)) };
+            return posts.map((post) => (post._id === action.payload._id ? action.payload : post));
+        case 'CREATE':
+            return [...posts, action.payload];
+        case 'UPDATE':
+            return posts.map((post) => (post._id === action.payload._id ? action.payload : post));
         case 'DELETE':
-            return { ...state, posts: state.posts.filter((post) => post._id !== action.payload) };
+            return posts.filter((post) => post._id !== action.payload);
         default:
-            return state;
+            return posts;
     }
-}
+};
