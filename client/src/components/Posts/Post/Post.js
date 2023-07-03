@@ -10,11 +10,13 @@ import { useDispatch } from 'react-redux';
 import { deletePost, likePost } from '../../../actions/posts';
 import Form from '../../Form/Form';
 import { useModalProvider } from '../../../ModalProvider';
+import { useNavigate } from 'react-router-dom';
 
 const Post = ({ post, setCurrentID }) => {
     const classes = useStyles()
     const dispatch = useDispatch()
     const { createModal } = useModalProvider()
+    const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem('profile'))
 
     function renderEditPostModal(id) {
@@ -29,6 +31,10 @@ const Post = ({ post, setCurrentID }) => {
         )
     }
 
+    const openPost = () => {
+        navigate(`/posts/${post._id}`)
+    }
+
     const Likes = () => {
         if (post.likes.length > 0) {
             return post.likes.find((like) => like === (user?.result?.sub || user?.result?._id))
@@ -41,6 +47,8 @@ const Post = ({ post, setCurrentID }) => {
 
         return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
     }
+
+
 
     return (
         <Card className={classes.card}>
@@ -67,10 +75,12 @@ const Post = ({ post, setCurrentID }) => {
                 </Typography>
             </div>
 
-            <Typography className={classes.title} variant='h5' gutterBottom>{post.title}</Typography>
-
+            <Typography className={classes.title} variant='h5' gutterBottom style={{cursor: 'pointer', textDecoration: 'underline', color: '#0000EE'}} onClick={openPost}>{post.title}</Typography>
+                    
             <CardContent>
-                <Typography variant='body2' color='textSecondary' component={'p'} gutterBottom>{post.message}</Typography>
+                <Typography variant='body2' color='textSecondary' component={'p'} gutterBottom>
+                    {post.message.split(' ').length > 20 ? `${post.message.split(' ').splice(0, 20).join(' ')} ...` : post.message}
+                </Typography>
             </CardContent>
 
             <CardActions className={classes.cardActions}>

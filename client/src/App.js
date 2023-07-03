@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './components/Home/Home'
 import Auth from './components/Auth/Auth'
+import PostDetails from './components/PostDetails/PostDetails'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
                     <Routes>
                         <Route path='/' element={<Home />}/>
                         <Route path='/auth' element={<Auth />}/>
+                        <Route path='/posts/:id' element={<PostDetails />} />
                     </Routes>
 
                 </Container>
