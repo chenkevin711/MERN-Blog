@@ -4,10 +4,12 @@ import FileBase from 'react-file-base64'
 import { useDispatch, useSelector } from 'react-redux'
 import useStyles from './styles'
 import { createPost, updatePost } from '../../actions/posts'
+import { useModalProvider } from '../../ModalProvider'
 
 const Form = ({ currentID, setCurrentID }) => {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const { closeAll } = useModalProvider()
     const post = useSelector((state) => currentID ? state.posts.find(p => p._id === currentID) : null)
     const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: ''})
     const user = JSON.parse(localStorage.getItem('profile'))
@@ -27,6 +29,7 @@ const Form = ({ currentID, setCurrentID }) => {
         } else {
             dispatch(createPost({ ...postData, name: user?.result?.name }))
         }
+        closeAll()
         clear()
     }
 
