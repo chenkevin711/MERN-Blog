@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API = axios.create({ baseURL: 'https://mern-blog-silk.vercel.app' })
+const API = axios.create({ baseURL: 'https://mern-blog-api-gamma.vercel.app' })
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem('profile')) {
