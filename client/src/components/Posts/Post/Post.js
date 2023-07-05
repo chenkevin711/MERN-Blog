@@ -59,11 +59,15 @@ const Post = ({ post, setCurrentID }) => {
                 <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>
             </div>
 
-            <div className={classes.overlay2}>
-                <Button style={{ color: 'white' }} size='small' onClick={() => { setCurrentID(post._id); renderEditPostModal(post._id) }}>
-                    <MoreHorizIcon fontSize='large' />
-                </Button>
-            </div>
+            {(user?.result?.sub === post?.creator || user?.result?._id === post?.creator) ? 
+                <div className={classes.overlay2}>
+                    <Button style={{ color: 'white' }} size='small' onClick={() => { setCurrentID(post._id); renderEditPostModal(post._id) }}>
+                        <MoreHorizIcon fontSize='large' />
+                    </Button>
+                </div> 
+                :
+                null
+            }
 
             <div className={classes.details}>
                 <Typography variant='body2' color='textSecondary'>
