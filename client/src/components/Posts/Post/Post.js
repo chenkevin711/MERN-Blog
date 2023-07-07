@@ -48,11 +48,22 @@ const Post = ({ post, setCurrentID }) => {
         return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
     }
 
-
+    function isVideo() {
+        if (post.selectedFile.split(',')[0].split('/')[0].split(':')[1] === 'image') {
+            return false
+        } else {
+            return true
+        }
+    }
 
     return (
         <Card className={classes.card}>
-            <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
+            {isVideo() ? 
+                <CardMedia className={classes.media} src={post.selectedFile} title={post.title} />
+                :
+                <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
+            }
+            
 
             <div className={classes.overlay}>
                 <Typography variant='h6'>{post.name}</Typography>
