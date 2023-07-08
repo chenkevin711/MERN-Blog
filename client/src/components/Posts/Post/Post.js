@@ -58,8 +58,15 @@ const Post = ({ post, setCurrentID }) => {
 
     return (
         <Card className={classes.card}>
-            {isVideo() ? 
-                <CardMedia className={classes.media} src={post.selectedFile} title={post.title} />
+            {post.selectedFile.split(',')[0].split('/')[0].split(':')[1] === 'video' ? 
+                <CardMedia
+                    component='video'
+                    className={classes.media}
+                    image={post.selectedFile}
+					playsInline
+                    controls
+                    style={{padding: 0, height: 'auto', width: 'auto', maxHeight: '295px'}}
+                />
                 :
                 <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
             }

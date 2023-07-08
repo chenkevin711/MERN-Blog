@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Paper, Typography, CircularProgress, Divider } from '@mui/material'
+import { Paper, Typography, CircularProgress, Divider, CardMedia } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
@@ -46,8 +46,23 @@ const PostDetails = () => {
 					<Typography variant="body1" style={{marginLeft: '10px', height: 'min-content', marginTop: '2px'}}>{moment(post.createdAt).fromNow()}</Typography>
 				</div>
 			</div>
-			<div className={classes.imageSection}>
-			<img className={classes.media} src={post.selectedFile} alt={post.title} />
+			<div className={classes.imageSection} style={{display: post.selectedFile.split(',')[0].split('/')[0].split(':')[1] === 'video' ? 'contents' : 'block'}}>
+			{post.selectedFile.split(',')[0].split('/')[0].split(':')[1] === 'video' ? 
+                <CardMedia
+                    component='video'
+                    className={classes.media}
+                    image={post.selectedFile}
+                    autoPlay
+					allow="autoPlay"
+					loop
+					playsInline
+                    controls
+                    style={{padding: 0, height: 'auto', width: 'auto'}}
+                />
+				:
+				<img className={classes.media} src={post.selectedFile} alt={post.title} />
+			}
+			
 			</div>
 		</div>
 		</Paper>
